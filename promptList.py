@@ -44,14 +44,18 @@ def fetch_videos():
     after_day = int(after_day) if after_day else current_date.day
     after_date = f"{after_year}{after_month:02d}{after_day:02d}"
 
+    #format for --print-to-file output
+    format_list = "%(upload_date)s %(id)s %(title)s %(webpage_url)s %(live_status)s %(duration_string)s"
+   
     # Construct the yt-dlp command
     command = [
         "yt-dlp",
         f"--dateafter {after_date}",
         f"--datebefore {before_date}",
-        "--skip-download",
+        "--verbose",
         "--get-title",
         "--get-id",
+	f"-s --print-to-file '{format_list}' tmpList.txt", 
         channel_url
     ]
 
